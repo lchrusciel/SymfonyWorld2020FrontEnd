@@ -5,7 +5,7 @@
     <form ref="addToCartForm">
       <select id="variants" ref="variant" v-if="this.variants.length > 1">
         <option v-for="variant in this.variants" :key="variant.code" :value="variant.code">
-          {{ variant.translations[locale].name }}
+          {{ variant.translations[locale].name }} <Price :amount="variant.channelPricings['FASHION_WEB'].price" />
         </option>
       </select>
       <br/>
@@ -28,11 +28,13 @@
 
 <script>
 import router from "@/router";
+import Price from "@/components/Price";
 
 const axios = require('axios');
 
 export default {
   name: 'Product',
+  components: {Price},
   data() {
     return {
       product: {
