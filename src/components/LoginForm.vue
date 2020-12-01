@@ -27,7 +27,7 @@ export default {
 
       axios
         .post(
-            'LOGIN_URL',
+            'https://127.0.0.1:8000/new-api/shop/authentication-token',
             {'email': email, 'password': password},
             { headers: { accept: 'application/json', 'Content-Type': 'application/json' } }
         )

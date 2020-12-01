@@ -5,7 +5,7 @@
     <form ref="addToCartForm">
       <select id="variants" ref="variant" v-if="this.variants.length > 1">
         <option v-for="variant in this.variants" :key="variant.code" :value="variant.code">
-          {{ variant.translations[locale].name }} <Price :amount="variant.channelPricings['FASHION_WEB'].price" />
+          {{ variant.translations[locale].name }}
         </option>
       </select>
       <br/>
@@ -28,13 +28,11 @@
 
 <script>
 import router from "@/router";
-import Price from "@/components/Price";
 
 const axios = require('axios');
 
 export default {
   name: 'Product',
-  components: {Price},
   data() {
     return {
       product: {
@@ -162,24 +160,25 @@ export default {
     }
   },
   mounted () {
-    // let headers = { Authorization: 'Bearer TOKEN', accept: 'application/ld+json' };
-    //
-    // axios
-    //   .get('GET_PRODUCT_DETAILS_URL', { headers: headers })
-    //   .then((response) => {
-    //     this.product = response.data
-    //
-    //     let variants = [];
-    //     response.data.variants.forEach(function (item) {
-    //       axios.get(
-    //           'https://127.0.0.1:8000'+item,
-    //           { headers: { accept: 'application/json' } }
-    //       ).then(response => ( variants.push(response.data) ))
-    //     });
-    //
-    //     this.variants = variants;
-    //   })
-    // ;
+    let headers = { accept: 'application/ld+json' };
+
+    axios
+      .get('https://127.0.0.1:8000/new-api/shop/products/'+this.id, { headers: headers })
+      .then((response) => {
+        this.product = response.data
+        console.log(this.product);
+
+        let variants = [];
+        response.data.variants.forEach(function (item) {
+          axios.get(
+              'https://127.0.0.1:8000'+item,
+              { headers: { accept: 'application/json' } }
+          ).then(response => ( variants.push(response.data) ))
+        });
+
+        this.variants = variants;
+      })
+    ;
     // axios
     //   .get('UPDATE_WISHLIST_URL', { headers: headers })
     //   .then((response) => {

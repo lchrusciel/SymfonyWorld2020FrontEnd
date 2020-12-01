@@ -40,10 +40,10 @@ export default {
   mounted () {
     axios
       .get(
-          'GET_PRODUCT_ENDPOINT',
+          'https://127.0.0.1:8000/new-api/shop/products?itemsPerPage='+this.count,
           { headers: { accept: 'application/json' } }
         )
-      .then(response => ( console.log(response.data) ))
+      .then(response => ( this.products = response.data ))
   }
 }
 </script>

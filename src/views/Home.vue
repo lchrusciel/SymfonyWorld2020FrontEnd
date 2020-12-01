@@ -2,7 +2,7 @@
   <div id="app">
     <LoginForm />
     <img alt="Sylius logo" src="../assets/logo.png">
-    <Products :count="20" locale="en_US" />
+    <Products :count="10" locale="en_US" />
   </div>
 </template>
 
